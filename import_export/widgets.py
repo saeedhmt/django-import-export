@@ -439,6 +439,11 @@ class ManyToManyWidget(Widget):
             ids = [int(value)]
         else:
             ids = value.split(self.separator)
+            for id in ids:
+                try:
+                    id = self.model.objects.get(pk=id)
+                except ObjectDoesNotExist as e:
+                    raise
             ids = filter(None, [i.strip() for i in ids])
         return self.model.objects.filter(**{
             '%s__in' % self.field: ids
