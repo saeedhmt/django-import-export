@@ -45,6 +45,7 @@ class ImportMixin(BaseImportMixin, ImportExportMixinBase):
     skip_admin_log = None
     # storage class for saving temporary files
     tmp_storage_class = None
+    change_list_template_extend = 'admin/change_list.html'
 
     def get_skip_admin_log(self):
         if self.skip_admin_log is None:
@@ -305,7 +306,7 @@ class ImportMixin(BaseImportMixin, ImportExportMixinBase):
         if extra_context is None:
             extra_context = {}
         extra_context['has_import_permission'] = self.has_import_permission(request)
-        extra_context['change_list_template_extend'] = 'admin/change_list.html'
+        extra_context['change_list_template_extend'] = self.change_list_template_extend
         return super().changelist_view(request, extra_context)
 
 
@@ -322,6 +323,7 @@ class ExportMixin(BaseExportMixin, ImportExportMixinBase):
     export_template_name = 'admin/import_export/export.html'
     #: export data encoding
     to_encoding = "utf-8"
+    change_list_template_extend = 'admin/change_list.html'
 
     def get_urls(self):
         urls = super().get_urls()
@@ -433,7 +435,7 @@ class ExportMixin(BaseExportMixin, ImportExportMixinBase):
         if extra_context is None:
             extra_context = {}
         extra_context['has_export_permission'] = self.has_export_permission(request)
-        extra_context['change_list_template_extend'] = 'admin/change_list.html'
+        extra_context['change_list_template_extend'] = self.change_list_template_extend
         return super().changelist_view(request, extra_context)
 
     def get_export_filename(self, request, queryset, file_format):
