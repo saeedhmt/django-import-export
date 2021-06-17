@@ -305,6 +305,7 @@ class ImportMixin(BaseImportMixin, ImportExportMixinBase):
         if extra_context is None:
             extra_context = {}
         extra_context['has_import_permission'] = self.has_import_permission(request)
+        extra_context['change_list_template_extend'] = 'admin/change_list.html'
         return super().changelist_view(request, extra_context)
 
 
@@ -432,6 +433,7 @@ class ExportMixin(BaseExportMixin, ImportExportMixinBase):
         if extra_context is None:
             extra_context = {}
         extra_context['has_export_permission'] = self.has_export_permission(request)
+        extra_context['change_list_template_extend'] = 'admin/change_list.html'
         return super().changelist_view(request, extra_context)
 
     def get_export_filename(self, request, queryset, file_format):
