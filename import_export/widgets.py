@@ -433,6 +433,7 @@ class ManyToManyWidget(Widget):
         super().__init__(*args, **kwargs)
 
     def clean(self, value, row=None, *args, **kwargs):
+        print(self.field)
         if not value:
             return self.model.objects.none()
         if isinstance(value, (float, int)):
@@ -441,7 +442,7 @@ class ManyToManyWidget(Widget):
             ids = value.split(self.separator)
             for id in ids:
                 try:
-                    id = self.model.objects.get(pk=id)
+                    self.model.objects.get(**{self.field:id})
                 except ObjectDoesNotExist as e:
                     raise
             ids = filter(None, [i.strip() for i in ids])
