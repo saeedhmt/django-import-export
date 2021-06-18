@@ -433,7 +433,6 @@ class ManyToManyWidget(Widget):
         super().__init__(*args, **kwargs)
 
     def clean(self, value, row=None, *args, **kwargs):
-        print(self.field)
         if not value:
             return self.model.objects.none()
         if isinstance(value, (float, int)):
